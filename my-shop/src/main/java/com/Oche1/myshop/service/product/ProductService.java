@@ -1,6 +1,7 @@
 package com.Oche1.myshop.service.product;
 
 import com.Oche1.myshop.exceptions.ProductNotFoundException;
+import com.Oche1.myshop.exceptions.ResourceNotFoundEception;
 import com.Oche1.myshop.model.Category;
 import com.Oche1.myshop.model.Product;
 import com.Oche1.myshop.repository.CategoryRepository;
@@ -49,14 +50,14 @@ public class ProductService implements IProductService {
     public Product getProductById(Long id) {
 
         return productRepository.findById(id)
-                .orElseThrow(()-> new ProductNotFoundException("Product not found!"));
+                .orElseThrow(()-> new ResourceNotFoundEception("Product not found!"));
     }
 
     @Override
     public void deleteProductById(Long id) {
         productRepository.findById(id)
                 .ifPresentOrElse(productRepository::delete,
-                        ()->{throw new ProductNotFoundException("Product not found!");});
+                        ()->{throw new ResourceNotFoundEception("Product not found!");});
     }
 
     @Override
@@ -64,7 +65,7 @@ public class ProductService implements IProductService {
         return productRepository.findById(productId)
                 .map(existingProduct -> updateExistingProduct(existingProduct,request))
                 .map(productRepository :: save)
-                .orElseThrow( ()-> new ProductNotFoundException("Product not found!"));
+                .orElseThrow( ()-> new ResourceNotFoundEception("Product not found!"));
     }
 
     private Product updateExistingProduct(Product existingProduct, ProductUpdateRequest request){
