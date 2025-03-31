@@ -4,6 +4,7 @@ import com.Oche1.myshop.exceptions.AleardyExistsExceptions;
 import com.Oche1.myshop.exceptions.ResourceNotFoundEception;
 import com.Oche1.myshop.model.Category;
 import com.Oche1.myshop.response.ApiResponse;
+import com.Oche1.myshop.service.category.CategoryService;
 import com.Oche1.myshop.service.category.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,9 @@ public class CategoryController {
     public ResponseEntity<ApiResponse> getAllCategories(){
         try {
             List<Category> categories = categoryService.getAllCategories();
-            return ResponseEntity.ok(new ApiResponse("Found!", categories));
+           return ResponseEntity.ok(new ApiResponse("Found!", categories));
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Error:", INTERNAL_SERVER_ERROR));
+          return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Error:", INTERNAL_SERVER_ERROR));
         }
     }
 
