@@ -25,5 +25,6 @@ public class Category {
     private List<Product> products;
 
     public Category(String name) {
+        this.name=name;
     }
 }
